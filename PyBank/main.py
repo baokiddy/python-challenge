@@ -21,7 +21,6 @@ with open(csvpath, newline='', encoding='utf8') as csvfile:
     # Then store the contents of the date and profit/loss columns.
     for row in csvreader:
         
-        #if not [ char for char in row if char in string.digits ]:
             date.append(row[0])
             profit_loss.append(row[1])
         
@@ -102,3 +101,19 @@ print(f'Total: {total}')
 print(f'Average  Change: {round(avg_change, 2)}')
 print(f'Greatest Increase in Profits: {inc_date} (${rec_profit})')
 print(f'Greatest Decrease in Profits: {dec_date} (${rec_loss})')
+
+
+#Export a text file with the results
+# save the output file path
+output_file = os.path.join("financial_analysis.csv")
+
+# open the output file, create a header row, and then write the zipped object to the csv
+with open(output_file, "w", newline="") as datafile:
+    writer = csv.writer(datafile)
+
+    writer.writerow(["Financial Analysis"])
+    writer.writerow(["Total Months", num_month])
+    writer.writerow(["Total", total])
+    writer.writerow(["Average  Change", round(avg_change, 2)])
+    writer.writerow(["Greatest Increase in Profits", inc_date, rec_profit])
+    writer.writerow(["Greatest Decrease in Profits", dec_date, rec_loss])
